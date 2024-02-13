@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="add.html">Add</a>
+        <a href="search.html">Search</a>
+    </nav>
+
+    <div class="container">
+        <h1>Search Guitar Inventory</h1>
+        <form>
+            <label for="builder">Builder:</label>
+            <input type="text" id="builder" name="builder" required>
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" required>
+
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" required>
+
+            <label for="backwood">Backwood:</label>
+            <input type="text" id="backwood" name="backwood" required>
+
+            <label for="topwood">Topwood:</label>
+            <input type="text" id="topwood" name="topwood" required>
+
+            <button type="button" onclick="displayResult()">Search</button>
+        </form>
+
+        <table id="resultTable">
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Price</th>
+                    <th>Builder</th>
+                    <th>Model</th>
+                    <th>Type</th>
+                    <th>Backwood</th>
+                    <th>Topwood</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const guitars = [
+            {
+                "SerialNumber": "1234",
+                "Price": 1000,
+                "Builder": "Fender",
+                "Model": "Stratocaster",
+                "Type": "Electric",
+                "Backwood": "Alder",
+                "Topwood": "Maple"
+            },
+            {
+                "SerialNumber": "5678",
+                "Price": 1500,
+                "Builder": "Gibson",
+                "Model": "Les Paul",
+                "Type": "Electric",
+                "Backwood": "Mahogany",
+                "Topwood": "Maple"
+            },
+            {
+                "SerialNumber": "91011",
+                "Price": 2000,
+                "Builder": "Martin",
+                "Model": "D-28",
+                "Type": "Acoustic",
+                "Backwood": "Rosewood",
+                "Topwood": "Spruce"
+            },
+            {
+                "SerialNumber": "121314",
+                "Price": 2500,
+                "Builder": "Taylor",
+                "Model": "914ce",
+                "Type": "Acoustic",
+                "Backwood": "Rosewood",
+                "Topwood": "Spruce"
+            },
+            {
+                "SerialNumber": "151617",
+                "Price": 3000,
+                "Builder": "Gibson",
+                "Model": "Hummingbird",
+                "Type": "Acoustic",
+                "Backwood": "Mahogany",
+                "Topwood": "Mahogany"
+            }];
+        
+            function displayResult() {
+    // Get form data and convert to lowercase
+    let builder = document.getElementById("builder").value.toLowerCase();
+    let model = document.getElementById("model").value.toLowerCase();
+    let type = document.getElementById("type").value.toLowerCase();
+    let backwood = document.getElementById("backwood").value.toLowerCase();
+    let topwood = document.getElementById("topwood").value.toLowerCase();
+
+    // Convert guitars array values to lowercase and filter
+     // Filter guitars based on filled-out form fields
+     let filteredGuitars = guitars.filter(function(guitar) {
+        return (
+            (builder === "" || guitar.Builder.toLowerCase() === builder) &&
+            (model === "" || guitar.Model.toLowerCase() === model) &&
+            (type === "" || guitar.Type.toLowerCase() === type) &&
+            (backwood === "" || guitar.Backwood.toLowerCase() === backwood) &&
+            (topwood === "" || guitar.Topwood.toLowerCase() === topwood)
+        );
+    });
+
+    // Display results
+    let resultTable = document.getElementById("resultTable");
+    let resultTableBody = resultTable.getElementsByTagName("tbody")[0];
+    resultTableBody.innerHTML = "";
+    filteredGuitars.forEach(function(guitar) {
+        let row = resultTableBody.insertRow(-1);
+        let serialNumberCell = row.insertCell(0);
+        let priceCell = row.insertCell(1);
+        let builderCell = row.insertCell(2);
+        let modelCell = row.insertCell(3);
+        let typeCell = row.insertCell(4);
+        let backwoodCell = row.insertCell(5);
+        let topwoodCell = row.insertCell(6);
+        serialNumberCell.innerHTML = guitar.SerialNumber;
+        priceCell.innerHTML = guitar.Price;
+        builderCell.innerHTML = guitar.Builder;
+        modelCell.innerHTML = guitar.Model;
+        typeCell.innerHTML = guitar.Type;
+        backwoodCell.innerHTML = guitar.Backwood;
+        topwoodCell.innerHTML = guitar.Topwood;
+    });
+}
+
+
+    </script>
+
+</body>
+</html>

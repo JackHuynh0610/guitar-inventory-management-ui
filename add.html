@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="add.html">Add</a>
+        <a href="search.html">Search</a>
+    </nav>
+
+    <div class="container">
+        <h1>Add Guitar Information</h1>
+        <form>
+            <label for="serialNumber">Serial Number:</label>
+            <input type="text" id="serialNumber" name="serialNumber" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required>
+
+            <label for="builder">Builder:</label>
+            <input type="text" id="builder" name="builder" required>
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" required>
+
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" required>
+
+            <label for="backwood">Backwood:</label>
+            <input type="text" id="backwood" name="backwood" required>
+
+            <label for="topwood">Topwood:</label>
+            <input type="text" id="topwood" name="topwood" required>
+
+            <button onclick="displayData()" type="submit">Add Guitar</button>
+        </form>
+
+        <p><a href="search.html">Go to Search Page</a></p>
+    </div>
+
+    <script>
+        function displayData() {
+            // Get form data
+            let serialNumber = document.getElementById("serialNumber").value;
+            let price = document.getElementById("price").value;
+            let builder = document.getElementById("builder").value;
+            let model = document.getElementById("model").value;
+            let type = document.getElementById("type").value;
+            let backwood = document.getElementById("backwood").value;
+            let topwood = document.getElementById("topwood").value;
+
+            let guitarData = {
+                "SerialNumber": serialNumber,
+                "Price": price,
+                "Builder": builder,
+                "Model": model,
+                "Type": type,
+                "Backwood": backwood,
+                "Topwood": topwood
+            };
+            alert(JSON.stringify(guitarData, null, 2));
+        }
+    </script>
+
+</body>
+</html>
