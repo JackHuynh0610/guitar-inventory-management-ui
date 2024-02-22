@@ -17,7 +17,7 @@
 
     <div class="container">
         <h1>Add Guitar Information</h1>
-        <form>
+        <form class="guitarForm">
             <label for="serialNumber">Serial Number:</label>
             <input type="text" id="serialNumber" name="serialNumber" required>
 
@@ -39,14 +39,14 @@
             <label for="topwood">Topwood:</label>
             <input type="text" id="topwood" name="topwood" required>
 
-            <button onclick="displayData()" type="submit">Add Guitar</button>
+            <button onclick="validateData()" type="button">Add Guitar</button>
         </form>
 
         <p><a href="search.html">Go to Search Page</a></p>
     </div>
 
     <script>
-        function displayData() {
+        function validateData() {
             // Get form data
             let serialNumber = document.getElementById("serialNumber").value;
             let price = document.getElementById("price").value;
@@ -56,6 +56,13 @@
             let backwood = document.getElementById("backwood").value;
             let topwood = document.getElementById("topwood").value;
 
+            // Check if any field is empty
+            if (!serialNumber || !price || !builder || !model || !type || !backwood || !topwood) {
+                alert("Please enter a value for all fields.");
+                return;
+            }
+
+            // Create guitar data object
             let guitarData = {
                 "SerialNumber": serialNumber,
                 "Price": price,
@@ -65,9 +72,27 @@
                 "Backwood": backwood,
                 "Topwood": topwood
             };
-            alert(JSON.stringify(guitarData, null, 2));
+            
+            fetch('http://localhost:8080/addGuitar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(guitarData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("The guitar was added to the system.");
+                } else {
+                    alert("Something went wrong. Please try again or contact the customer support team.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Something went wrong. Please try again or contact the customer support team.");
+            });
         }
     </script>
-
 </body>
 </html>
