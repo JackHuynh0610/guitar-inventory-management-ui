@@ -55,14 +55,14 @@
             let type = document.getElementById("type").value;
             let backwood = document.getElementById("backwood").value;
             let topwood = document.getElementById("topwood").value;
-
+    
             // Check if any field is empty
             if (!serialNumber || !price || !builder || !model || !type || !backwood || !topwood) {
                 alert("Please enter a value for all fields.");
                 return;
             }
-
-            // Create guitar data object
+            
+                       // Create guitar data object
             let guitarData = {
                 "SerialNumber": serialNumber,
                 "Price": price,
@@ -73,6 +73,7 @@
                 "Topwood": topwood
             };
             
+            console.log(guitarData);
             fetch('http://localhost:8080/inventory/addGuitar', {
                 method: 'POST',
                 headers: {
