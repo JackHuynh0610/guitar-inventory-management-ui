@@ -64,28 +64,29 @@
             
                        // Create guitar data object
             let guitarData = {
-                "SerialNumber": serialNumber,
-                "Price": price,
-                "Builder": builder,
-                "Model": model,
-                "Type": type,
-                "Backwood": backwood,
-                "Topwood": topwood
+                "serialNumber": serialNumber,
+                "price": price,
+                "builder": builder,
+                "model": model,
+                "type": type,
+                "backWood": backwood,
+                "topWood": topwood
             };
             
             console.log(guitarData);
-            fetch('http://localhost:8080/inventory/addGuitar', {
+            fetch('https://hw2-latest.onrender.com/inventory/addGuitar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(guitarData),
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
+            .then(response => {console.log(response); return response.json()})
+            .then(result => {
+                if (result) {
                     alert("The guitar was added to the system.");
                 } else {
+                    console.log(result);
                     alert("Something went wrong. Please try again or contact the customer support team.");
                 }
             })
